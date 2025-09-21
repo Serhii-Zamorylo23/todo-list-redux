@@ -1,6 +1,7 @@
 import TaskItem from "./TaskItem";
 import { useDispatch} from "react-redux";
 import styled from "styled-components";
+import Filter from "./Filter";
 const FormContainer = styled.form`
   display: flex;
   justify-content: center;
@@ -48,11 +49,14 @@ const List = () => {
   const handleName=(e)=>{
     e.preventDefault()
     const name=e.target.elements.userName.value
-    console.log(name)
-    dispatch({
-      type:"Add",
-      payload:name
-    })
+    if(name.length>0){
+      dispatch({
+        type:"Add",
+        payload:name
+      })
+    } else{
+      alert("Please write task")
+    }
   }
   return (
     <>
@@ -60,6 +64,7 @@ const List = () => {
         <Input type="text" name="userName"/>
         <AddButton type="submit">Add</AddButton>
       </FormContainer>
+      <Filter/>
       <TaskList>
         <TaskItem/>
       </TaskList>
